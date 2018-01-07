@@ -1,0 +1,104 @@
+{
+  "games": [
+    {
+      "id": "1",
+      "date": "",
+      "name": "Game 1"
+    },
+    {
+      "name": "Game 2",
+      "id": "pdpVbDB"
+    }
+  ],
+  "teams": [
+    {
+      "id": "",
+      "name": "Good"
+    },
+    {
+      "id": "2",
+      "name": "Evil"
+    }
+  ],
+  "characters": [
+    {
+      "id": "1",
+      "isGood": true,
+      "name": "Merlin",
+      "description": "Knows evil"
+    },
+    {
+      "id": "2",
+      "isGood": true,
+      "name": "Perceval",
+      "description": "Knows Merlin and Morgana"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "name": "bob"
+    },
+    {
+      "id": "2",
+      "name": "Linh"
+    },
+    {
+      "id": "3",
+      "name": "George"
+    }
+  ],
+  "players": [
+    {
+      "id": "1",
+      "gameId": "1",
+      "userId": "1",
+      "characterId": "1"
+    },
+    {
+      "id": "2",
+      "gameId": "1",
+      "userId": "2",
+      "characterId": "2"
+    }
+  ],
+  "quests": [
+    {
+      "id": "1",
+      "gameId": "1",
+      "winner": "evil"
+    }
+  ],
+  "rounds": [
+    {
+      "id": "1",
+      "questId": "1",
+      "roundNumber": "1"
+    },
+    {
+      "id": "1",
+      "questId": "2",
+      "roundNumber": "1"
+    }
+  ],
+  "votes": [
+    {
+      "id": "1",
+      "roundId": "1",
+      "playerId": "1",
+      "accept": true
+    },
+    {
+      "id": "2",
+      "roundId": "1",
+      "playerId": "2",
+      "accept": false
+    },
+    {
+      "id": "2",
+      "roundId": "12",
+      "playerId": "20",
+      "accept": false
+    }
+  ]
+}
