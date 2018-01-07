@@ -119,8 +119,7 @@ const VoteType = new GraphQLObjectType({
   name: 'Vote',
   fields: () => ({
     id: { type: GraphQLString },
-    questId: { type: GraphQLString },
-    roundNumber: { type: GraphQLString },
+    roundId: { type: GraphQLString },
     playerId: { type: GraphQLString },
     accept: { type: GraphQLBoolean },
   })

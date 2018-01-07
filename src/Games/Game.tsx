@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { graphql, QueryProps } from 'react-apollo';
 import PlayerList, { IPlayer } from './PlayerList';
 import { RouteComponentProps } from 'react-router';
+import QuestList, { IQuest } from './QuestList';
 
 interface Request {
   id: string;
@@ -14,6 +15,7 @@ interface Response {
     id: string;
     name: string;
     players: IPlayer[];
+    quests: IQuest[];
   };
 }
 
@@ -23,6 +25,17 @@ const query = gql`query fetchGame($id: String!){
   game(id: $id) {
     id
     name
+    quests {
+      id
+      rounds {
+        roundNumber
+        votes {
+          id
+          accept
+          playerId
+        }
+      }
+    }
     players {
       id
       character {
@@ -46,7 +59,6 @@ const withGame = graphql<Response, InputProps, WrappedProps>(query, {
 });
 
 export default withGame((props) => {
-  console.log(props);
   if (props.loading) {
     return <p>Loading</p>;
   }
@@ -55,12 +67,9 @@ export default withGame((props) => {
       <h1>Game</h1>
       <h2>Players</h2>
       <PlayerList players={props.game.players} />
+      <h2>Quests</h2>
+      <QuestList quests={props.game.quests} />
     </div>
   );
 
 });
-// export default graphql(query, {
-//   options: (props: Props) => { return { variables: { id: props.match.params.id } }; }
-// })(Game);
-
-// export default Game;
