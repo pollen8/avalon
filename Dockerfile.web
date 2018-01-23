@@ -1,0 +1,22 @@
+FROM node:9.4.0-alpine
+
+# Maintainer
+MAINTAINER Rob Clayburn <rob@pollen-8.co.uk>
+
+WORKDIR /usr/src/app
+
+RUN apk update && apk upgrade && \
+  apk add --no-cache git bash libc6-compat 
+
+RUN yarn global add nodemon
+
+COPY client/package.json package.json
+COPY client/yarn.lock yarn.lock
+COPY ./client ./
+RUN yarn install --pure-lockfile
+
+EXPOSE 3000
+
+
+# Run the start script in package.json
+CMD ["yarn", "start"]

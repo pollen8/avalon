@@ -1,0 +1,21 @@
+FROM node:9.4.0-alpine
+
+# Maintainer
+MAINTAINER Rob Clayburn <rob@pollen-8.co.uk>
+
+# Expose the node port
+WORKDIR /usr/src/app/server
+
+RUN apk update && apk upgrade && \
+  apk add --no-cache git bash libc6-compat 
+
+COPY server/package.json package.json
+COPY server/yarn.lock yarn.lock
+COPY ./server ./
+RUN yarn install --pure-lockfile
+
+EXPOSE 3003
+
+
+# Run the start script in package.json
+CMD ["yarn", "json:server"]

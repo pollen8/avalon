@@ -1,0 +1,27 @@
+version: '3'
+services:
+    jsonserver:
+      build:
+        context: .
+        dockerfile: Dockerfile.jsonserver
+      volumes:
+        - ./server/:/usr/src/app/server
+      ports:
+        - "3004:3004" # JSON server
+    graphql:
+      build:
+        context: .
+        dockerfile: Dockerfile.graphql
+      volumes:
+        - ./server/:/usr/src/app/server
+      ports:
+        - "4000:4000" # Dev server
+    web:
+      build:
+        context: .
+        dockerfile: Dockerfile.web
+      volumes: 
+        - ./src/:/usr/src/app/client
+        - ./public:/usr/src/app/public
+      ports:
+        - "3000:3000"
