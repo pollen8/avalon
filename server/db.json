@@ -2,12 +2,25 @@
   "games": [
     {
       "id": "1",
+      "numberOfPlayers": 10,
       "date": "",
       "name": "Game 1"
     },
     {
       "name": "Game 2",
       "id": "pdpVbDB"
+    },
+    {
+      "name": "a",
+      "id": "l47GQJS"
+    },
+    {
+      "name": "1",
+      "id": "suEp1~P"
+    },
+    {
+      "name": "sdfasdf",
+      "id": "cQMs4s0"
     }
   ],
   "teams": [
