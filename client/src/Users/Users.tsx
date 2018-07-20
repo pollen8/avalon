@@ -1,8 +1,8 @@
+import { Alert, Card, CardBody, CardTitle, ListsGroup, ListsItem, ListsItemLabel } from '@infosum/unikitty';
+import gql from 'graphql-tag';
 import * as React from 'react';
 import { Component } from 'react';
-import gql from 'graphql-tag';
-import { graphql, ChildProps } from 'react-apollo';
-import Card from '../ui/Card';
+import { ChildProps, graphql } from 'react-apollo';
 
 interface IUser {
   id: string;
@@ -13,30 +13,39 @@ interface IResult {
   users: IUser[];
 }
 
-interface IInputProps {
-}
 
-class Users extends Component<ChildProps<IInputProps, IResult>, {}> {
+class Users extends Component<ChildProps<{}, IResult>, {}> {
   public render() {
-    console.log('props', this.props);
-
+    console.log('users props', this.props);
     if (!this.props.data) {
       return null;
     }
-
-    if (this.props.data.loading) {
+    const { loading, error, users } = this.props.data;
+    if (loading) {
       return <Card><b>Loading....</b></Card>;
     }
-    if (this.props.data.users === undefined) {
-      return null;
+    if (error) {
+      return <Alert color="danger100">{error.message}</Alert>
     }
+
     return (
       <Card>
-        {this.props.data.users.map((user: IUser) =>
-          <div key={user.id}>
-            <h4>{user.name}</h4>
-          </div>
-        )}
+        <CardBody>
+          <CardTitle>
+            Users
+          </CardTitle>
+          <ListsGroup>
+            {
+              users !== undefined &&
+              users.map((user: IUser) =>
+                <ListsItem key={user.id}>
+                  <ListsItemLabel>
+                    {user.name}
+                  </ListsItemLabel>
+                </ListsItem>
+              )}
+          </ListsGroup>
+        </CardBody>
       </Card>);
   }
 }
@@ -49,6 +58,6 @@ const query = gql`
   }
 }`;
 
-const withUsers = graphql<IResult, IInputProps>(query);
+const withUsers = graphql<{}, IResult, {}>(query);
 
 export default withUsers(Users);

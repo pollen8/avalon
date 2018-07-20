@@ -1,46 +1,56 @@
-import * as React from 'react';
-import Form, { IInjectedProps } from '../Form';
-import Button from '../ui/Button';
+import { Button, Form, FormGroup, Input, Label } from '@infosum/unikitty';
 import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
+import * as React from 'react';
+import { graphql, MutateProps } from 'react-apollo';
+import { IPlayer } from './PlayerList';
 
-interface IProps {
-  submit: (data: {
-    [key: string]: string
-  }) => void;
-  mutate: any;
-}
-const AddPlayer: React.SFC<IInjectedProps & IProps> = (props) => {
-  const { data, setValue } = props;
-  console.log('props', props);
+const initialData: IPlayer = {
+  character: {
+    id: '',
+    name: '',
+  },
+  id: '',
+  user: {
+    id: '',
+    name: '',
+  },
+};
+
+const AddPlayer: React.SFC<MutateProps<any>> = (props) => {
   return (
-    <div>
-      <label>Player:</label>
-      <input onChange={(e) => setValue('player', e.target.value)} />
-      <Button
-        onClick={() => {
-          console.log('add', data);
-
-          props.mutate({
-            variables: {
-              gamId: 1,
-              userId: 2,
-            }
-          }).then(() => setValue('player', ''));
-        }}
-      >
-        Add
+    <Form<IPlayer> initialData={initialData}>
+      {({ setValue, formData }) => {
+        return <div>
+          <FormGroup>
+            <Label>Player:</Label>
+            <Input
+              value={formData.user.name}
+              onChange={(e) => setValue('player', e.target.value)} />
+          </FormGroup>
+          <Button
+            onClick={() => {
+              props.mutate({
+                variables: {
+                  gamId: 1,
+                  userId: 2,
+                }
+              }).then(() => setValue('player', ''));
+            }}
+          >
+            Add
       </Button>
-    </div>
+        </div>
+      }}
+    </Form>
   );
 };
 
 const mutation = gql`
 mutation AddPlayerToGame($gameId: String, $userId: String) {
-  addPlayerToGame(gameId: $gameId, userId: $userId) {
-    id
+        addPlayerToGame(gameId: $gameId, userId: $userId) {
+        id
     lyrics {
-      id
+        id
       content
       likes
     }
@@ -48,4 +58,4 @@ mutation AddPlayerToGame($gameId: String, $userId: String) {
 }
 `;
 
-export default graphql(mutation)(Form()(AddPlayer));
+export default graphql(mutation)(AddPlayer);

@@ -1,7 +1,6 @@
+import { Button, Navbar } from '@infosum/unikitty';
 import * as React from 'react';
 import { Component } from 'react';
-import Button from './ui/Button';
-import Toolbar from './ui/Toolbar';
 import styled from 'styled-components';
 
 interface IProps {
@@ -15,10 +14,10 @@ const ToolbarTitle = styled.h1`
 
 class Header extends Component<IProps, {}> {
 
-  render() {
+  public render() {
     const { toggleMenu } = this.props;
     return (
-      <Toolbar>
+      <Navbar>
         <Button
           color="orange"
           onClick={() => toggleMenu()}
@@ -28,7 +27,7 @@ class Header extends Component<IProps, {}> {
         <ToolbarTitle>
           Avalon tracker...
         </ToolbarTitle>
-      </Toolbar>
+      </Navbar>
     );
   }
 }

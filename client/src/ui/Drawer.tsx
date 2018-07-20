@@ -1,6 +1,6 @@
+import { Button } from '@infosum/unikitty';
 import * as React from 'react';
 import { Component } from 'react';
-import Button from './Button';
 import styled, { StyledFunction } from 'styled-components';
 
 interface IProps {
@@ -32,7 +32,7 @@ class Drawer extends Component<IProps, {}> {
       <StyledDraw
         {...rest}
       >
-        <Button onClick={(e) => onClose()}>
+        <Button onClick={() => onClose()}>
           close
         </Button>
         {children}

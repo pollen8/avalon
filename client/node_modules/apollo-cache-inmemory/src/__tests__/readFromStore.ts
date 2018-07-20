@@ -1,6 +1,7 @@
 import { assign, omit } from 'lodash';
 import { IdValue, JsonValue } from 'apollo-utilities';
 import gql from 'graphql-tag';
+import { stripSymbols } from 'apollo-utilities';
 
 import { NormalizedCache, StoreObject, HeuristicFragmentMatcher } from '../';
 import { readQueryFromStore } from '../readFromStore';
@@ -62,7 +63,7 @@ describe('reading from the store', () => {
         fragmentMatcherFunction,
       });
 
-      expect(queryResult).toEqual({
+      expect(stripSymbols(queryResult)).toEqual({
         nestedObj: {
           innerArray: [{ id: 'abcdef', someField: 3 }],
         },
@@ -120,7 +121,7 @@ describe('reading from the store', () => {
     });
 
     // The result of the query shouldn't contain __data_id fields
-    expect(queryResult).toEqual({
+    expect(stripSymbols(queryResult)).toEqual({
       stringField: result['stringField'],
       numberField: result['numberField'],
     });
@@ -146,7 +147,7 @@ describe('reading from the store', () => {
       ROOT_QUERY: {
         id: 'abcd',
         nullField: null,
-        'numberField({"intArg":5,"floatArg":3.14})': 5,
+        'numberField({"floatArg":3.14,"intArg":5})': 5,
         'stringField({"arg":"This is a string!"})': 'Heyo',
       },
     });
@@ -157,11 +158,43 @@ describe('reading from the store', () => {
       variables,
     });
 
-    expect(result).toEqual({
+    expect(stripSymbols(result)).toEqual({
       id: 'abcd',
       nullField: null,
       numberField: 5,
       stringField: 'Heyo',
+    });
+  });
+
+  it('runs a basic query with custom directives', () => {
+    const query = gql`
+      query {
+        id
+        firstName @include(if: true)
+        lastName @upperCase
+        birthDate @dateFormat(format: "DD-MM-YYYY")
+      }
+    `;
+
+    const store = defaultNormalizedCacheFactory({
+      ROOT_QUERY: {
+        id: 'abcd',
+        firstName: 'James',
+        'lastName@upperCase': 'BOND',
+        'birthDate@dateFormat({"format":"DD-MM-YYYY"})': '20-05-1940',
+      },
+    });
+
+    const result = readQueryFromStore({
+      store,
+      query,
+    });
+
+    expect(stripSymbols(result)).toEqual({
+      id: 'abcd',
+      firstName: 'James',
+      lastName: 'BOND',
+      birthDate: '20-05-1940',
     });
   });
 
@@ -187,7 +220,7 @@ describe('reading from the store', () => {
       ROOT_QUERY: {
         id: 'abcd',
         nullField: null,
-        'numberField({"intArg":0,"floatArg":3.14})': 5,
+        'numberField({"floatArg":3.14,"intArg":0})': 5,
         'stringField({"arg":"This is a default string!"})': 'Heyo',
       },
     });
@@ -198,7 +231,7 @@ describe('reading from the store', () => {
       variables,
     });
 
-    expect(result).toEqual({
+    expect(stripSymbols(result)).toEqual({
       id: 'abcd',
       nullField: null,
       numberField: 5,
@@ -246,7 +279,7 @@ describe('reading from the store', () => {
     });
 
     // The result of the query shouldn't contain __data_id fields
-    expect(queryResult).toEqual({
+    expect(stripSymbols(queryResult)).toEqual({
       stringField: 'This is a string!',
       numberField: 5,
       nestedObj: {
@@ -335,7 +368,7 @@ describe('reading from the store', () => {
     });
 
     // The result of the query shouldn't contain __data_id fields
-    expect(queryResult).toEqual({
+    expect(stripSymbols(queryResult)).toEqual({
       stringField: 'This is a string!',
       numberField: 5,
       nullField: null,
@@ -399,7 +432,7 @@ describe('reading from the store', () => {
     });
 
     // The result of the query shouldn't contain __data_id fields
-    expect(queryResult).toEqual({
+    expect(stripSymbols(queryResult)).toEqual({
       stringField: 'This is a string!',
       numberField: 5,
       nestedArray: [
@@ -456,7 +489,7 @@ describe('reading from the store', () => {
     });
 
     // The result of the query shouldn't contain __data_id fields
-    expect(queryResult).toEqual({
+    expect(stripSymbols(queryResult)).toEqual({
       stringField: 'This is a string!',
       numberField: 5,
       nestedArray: [
@@ -509,7 +542,7 @@ describe('reading from the store', () => {
     });
 
     // The result of the query shouldn't contain __data_id fields
-    expect(queryResult).toEqual({
+    expect(stripSymbols(queryResult)).toEqual({
       stringField: 'This is a string!',
       numberField: 5,
       nestedArray: [
@@ -576,7 +609,7 @@ describe('reading from the store', () => {
     });
 
     // The result of the query shouldn't contain __data_id fields
-    expect(queryResult).toEqual({
+    expect(stripSymbols(queryResult)).toEqual({
       stringField: 'This is a string!',
       numberField: 5,
       nestedObj: null,
@@ -613,7 +646,7 @@ describe('reading from the store', () => {
     });
 
     // The result of the query shouldn't contain __data_id fields
-    expect(queryResult).toEqual({
+    expect(stripSymbols(queryResult)).toEqual({
       stringField: 'This is a string!',
       numberField: 5,
       simpleArray: ['one', 'two', 'three'],
@@ -650,7 +683,7 @@ describe('reading from the store', () => {
     });
 
     // The result of the query shouldn't contain __data_id fields
-    expect(queryResult).toEqual({
+    expect(stripSymbols(queryResult)).toEqual({
       stringField: 'This is a string!',
       numberField: 5,
       simpleArray: [null, 'two', 'three'],
@@ -718,7 +751,7 @@ describe('reading from the store', () => {
       `,
     });
 
-    expect(queryResult1).toEqual({
+    expect(stripSymbols(queryResult1)).toEqual({
       stringField: 'This is a string too!',
       numberField: 6,
       nullField: null,
@@ -741,7 +774,7 @@ describe('reading from the store', () => {
       `,
     });
 
-    expect(queryResult2).toEqual({
+    expect(stripSymbols(queryResult2)).toEqual({
       stringField: 'This is a deep string',
       numberField: 7,
       nullField: null,
@@ -775,7 +808,7 @@ describe('reading from the store', () => {
       `,
     });
 
-    expect(queryResult).toEqual({
+    expect(stripSymbols(queryResult)).toEqual({
       books: [
         {
           name: 'efgh',

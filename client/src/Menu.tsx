@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import Drawer from './ui/Drawer';
-import MenuList from './ui/MenuList';
 import MenuItem from './ui/MenuItem';
+import MenuList from './ui/MenuList';
 
 interface IProps {
   isOpen: boolean;
@@ -12,7 +12,7 @@ interface IProps {
 
 class Menu extends Component<IProps, {}> {
 
-  render() {
+  public render() {
     return (
 
       <Drawer

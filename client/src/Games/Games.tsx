@@ -1,20 +1,17 @@
+import { Card, CardBody, CardTitle, ListsGroup, ListsItem, ListsItemLabel } from '@infosum/unikitty';
+import gql from 'graphql-tag';
 import * as React from 'react';
 import { Component } from 'react';
-import gql from 'graphql-tag';
-import { graphql, ChildProps } from 'react-apollo';
-import Card from '../ui/Card';
+import { ChildProps, graphql } from 'react-apollo';
 import { NavLink } from 'react-router-dom';
-import { IGame } from './Game';
 import AddGame from './AddGame';
+import { IGame } from './Game';
 
 interface IResult {
   games: IGame[];
 }
 
-interface IInputProps {
-}
-
-class Games extends Component<ChildProps<IInputProps, IResult>, {}> {
+class Games extends Component<ChildProps<{}, IResult>, {}> {
   public render() {
     console.log('props', this.props);
 
@@ -30,14 +27,23 @@ class Games extends Component<ChildProps<IInputProps, IResult>, {}> {
     }
     return (
       <Card>
-        <AddGame />
-        {this.props.data.games.map(({ id, name }) =>
-          <div key={id}>
-            <NavLink to={`games/${id}`}>
-              {name}
-            </NavLink>
-          </div>
-        )}
+        <CardBody>
+          <CardTitle>
+            Games
+            </CardTitle>
+          <AddGame />
+          <ListsGroup>
+            {this.props.data.games.map(({ id, name }) =>
+              <ListsItem key={id}>
+                <NavLink to={`games/${id}`}>
+                  <ListsItemLabel>
+                    {name}
+                  </ListsItemLabel>
+                </NavLink>
+              </ListsItem>
+            )}
+          </ListsGroup>
+        </CardBody>
       </Card>);
   }
 }
@@ -50,6 +56,6 @@ export const gamesQuery = gql`
   }
 }`;
 
-const withGames = graphql<IResult, IInputProps>(gamesQuery);
+const withGames = graphql<{}, IResult, {}>(gamesQuery);
 
 export default withGames(Games);

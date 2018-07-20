@@ -3,6 +3,8 @@ const PlayerType = require('./playerType');
 const graphql = require('graphql');
 const axios = require('axios');
 
+const uri = 'http://localhost:4001';
+
 const {
   GraphQLObjectType,
   GraphQLString,
@@ -22,8 +24,10 @@ const mutation = new GraphQLObjectType({
         name: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve(parentValue, { name }) {
-        return axios.post('http://localhost:3000/games', { name })
-          .then(res => res.data);
+        console.log('add game', { name });
+        return axios.post(`${uri}/games`, { name })
+          .then(res => res.data)
+          .catch(e => console.log('error', e));
       }
     },
     deleteGame: {
@@ -32,7 +36,7 @@ const mutation = new GraphQLObjectType({
         id: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parentValue, { id }) {
-        return axios.delete(`http://localhost:3000/games/${id}`)
+        return axios.delete(`${uri}/games/${id}`)
           .then(res => res.data);
       }
     },
@@ -43,7 +47,7 @@ const mutation = new GraphQLObjectType({
         id: { type: GraphQLString }
       },
       resolve(parentValue, { gameId, id }) {
-        return axios.post(`http://localhost:3000/player`, {
+        return axios.post(`${uri}/player`, {
           gameId,
           id,
         }).then(res => res.data);

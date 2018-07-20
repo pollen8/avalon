@@ -9,6 +9,7 @@ RUN apk update && apk upgrade && \
   apk add --no-cache git bash libc6-compat 
 
 RUN yarn global add nodemon
+RUN yarn global add typescript
 
 COPY client/package.json package.json
 COPY client/yarn.lock yarn.lock

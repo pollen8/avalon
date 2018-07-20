@@ -9,6 +9,8 @@ const TeamType = require('./teamType');
 const QuestRoundType = require('./questRoundType');
 const VoteType = require('./voteType');
 
+const uri = 'http://localhost:4001';
+
 const {
   GraphQLObjectType,
   GraphQLString,
@@ -25,7 +27,8 @@ const RootQuery = new GraphQLObjectType({
     games: {
       type: new GraphQLList(GameType),
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3000/games/`)
+        console.log('get games');
+        return axios.get(`${uri}/games/`)
           .then(resp => resp.data);
       }
     },
@@ -33,14 +36,14 @@ const RootQuery = new GraphQLObjectType({
       type: GameType,
       args: { id: { type: GraphQLString } },
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3000/games/${args.id}`)
+        return axios.get(`${uri}/games/${args.id}`)
           .then(resp => resp.data);
       }
     },
     characters: {
       type: GraphQLList(CharacterType),
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3000/characters`)
+        return axios.get(`${uri}/characters`)
           .then(resp => resp.data);
       }
     },
@@ -48,14 +51,14 @@ const RootQuery = new GraphQLObjectType({
       type: CharacterType,
       args: { id: { type: GraphQLString } },
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3000/characters/${args.id}`)
+        return axios.get(`${uri}/characters/${args.id}`)
           .then(resp => resp.data);
       }
     },
     users: {
       type: GraphQLList(UserType),
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3000/users`)
+        return axios.get(`${uri}/users`)
           .then(resp => resp.data);
       }
     }
