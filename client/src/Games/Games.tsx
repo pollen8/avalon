@@ -5,11 +5,13 @@ import { Component } from 'react';
 import { ChildProps, graphql } from 'react-apollo';
 import { NavLink } from 'react-router-dom';
 import AddGame from './AddGame';
+import DeleteGame from './DeleteGame';
 import { IGame } from './Game';
 
 interface IResult {
   games: IGame[];
 }
+
 
 class Games extends Component<ChildProps<{}, IResult>, {}> {
   public render() {
@@ -39,6 +41,7 @@ class Games extends Component<ChildProps<{}, IResult>, {}> {
                   <ListsItemLabel>
                     {name}
                   </ListsItemLabel>
+                  <DeleteGame id={id} />
                 </NavLink>
               </ListsItem>
             )}
