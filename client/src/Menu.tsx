@@ -23,7 +23,7 @@ class Menu extends Component<IProps, {}> {
         <MenuList>
           <MenuItem><NavLink to="/">Games</NavLink></MenuItem>
           <MenuItem><NavLink to="/characters">Characters</NavLink></MenuItem>
-          <MenuItem><NavLink to="/users">Users</NavLink></MenuItem>
+          <MenuItem><NavLink to="/players">Players</NavLink></MenuItem>
         </MenuList>
       </Drawer>
 

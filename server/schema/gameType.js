@@ -7,12 +7,8 @@ const QuestType = require('./questType');
 const {
   GraphQLObjectType,
   GraphQLString,
-  GraphQLDate,
   GraphQLInt,
-  GraphQLSchema,
-  GraphQLBoolean,
   GraphQLList,
-  GraphQLNonNull
 } = graphql;
 
 const uri = 'http://localhost:4001';
@@ -26,14 +22,14 @@ const GameType = new GraphQLObjectType({
     numberOfPlayers: { type: GraphQLInt },
     players: {
       type: new GraphQLList(PlayerType),
-      resolve(parentValue, args) {
+      resolve(parentValue) {
         return axios.get(`${uri}/games/${parentValue.id}/players`)
           .then(res => res.data)
       }
     },
     quests: {
       type: new GraphQLList(QuestType),
-      resolve(parentValue, args) {
+      resolve(parentValue) {
         return axios.get(`${uri}/games/${parentValue.id}/quests`)
           .then(res => res.data)
       }

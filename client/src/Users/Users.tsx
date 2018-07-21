@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import * as React from 'react';
 import { Component } from 'react';
 import { ChildProps, graphql } from 'react-apollo';
-
+import AddUser from './AddUser';
 interface IUser {
   id: string;
   name: string;
@@ -34,6 +34,7 @@ class Users extends Component<ChildProps<{}, IResult>, {}> {
           <CardTitle>
             Users
           </CardTitle>
+          <AddUser />
           <ListsGroup>
             {
               users !== undefined &&
@@ -50,7 +51,7 @@ class Users extends Component<ChildProps<{}, IResult>, {}> {
   }
 }
 
-const query = gql`
+export const GET_USERS = gql`
 {
   users {
     id
@@ -58,6 +59,6 @@ const query = gql`
   }
 }`;
 
-const withUsers = graphql<{}, IResult, {}>(query);
+const withUsers = graphql<{}, IResult, {}>(GET_USERS);
 
 export default withUsers(Users);

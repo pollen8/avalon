@@ -1,5 +1,6 @@
 const GameType = require('./gameType');
 const PlayerType = require('./playerType');
+const UserType = require('./userType');
 const graphql = require('graphql');
 const axios = require('axios');
 
@@ -8,25 +9,34 @@ const uri = 'http://localhost:4001';
 const {
   GraphQLObjectType,
   GraphQLString,
-  GraphQLInt,
-  GraphQLSchema,
-  GraphQLBoolean,
-  GraphQLList,
   GraphQLNonNull
 } = graphql;
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
+    addUser: {
+      type: UserType,
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve(parentValue, { name }) {
+        return axios.post(`${uri}/users`, { name })
+          .then(res => res.data)
+          .catch(e => console.log('error', e));
+      }
+    },
     addGame: {
       type: GameType,
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve(parentValue, { name }) {
-        console.log('add game', { name });
         return axios.post(`${uri}/games`, { name })
-          .then(res => res.data)
+          .then(res => {
+            console.log('add game', res.data);
+            return res.data;
+          })
           .catch(e => console.log('error', e));
       }
     },

@@ -1,38 +1,37 @@
-// import Form, { IInjectedProps } from '../Form';
 import { Button, Form, FormGroup, Input, Label } from '@infosum/unikitty';
 import gql from 'graphql-tag';
 import * as React from 'react';
 import { Mutation } from 'react-apollo';
-import { GET_GAMES } from './Games';
+import { GET_USERS } from './Users';
 
 
-interface IAddGameRequest {
+interface IAddUserRequest {
   id?: string;
   name: string;
 }
 
-const ADD_GAME = gql`
+const ADD_USER = gql`
 mutation AddGame($name: String!) {
-  addGame(name: $name) {
+  addUser(name: $name) {
     id,
     name
   }
 }
 `;
 
-const AddGame: React.SFC<{}> = () => {
+const AddUser: React.SFC<{}> = () => {
   return (
     <Mutation
-      mutation={ADD_GAME}
-      update={(cache, { data: { addGame } }) => {
-        const { games } = cache.readQuery<any>({ query: GET_GAMES });
+      mutation={ADD_USER}
+      update={(cache, { data: { addUser } }) => {
+        const { users } = cache.readQuery<any>({ query: GET_USERS });
         cache.writeQuery({
-          data: { games: games.concat([addGame]) },
-          query: GET_GAMES,
+          data: { users: users.concat([addUser]) },
+          query: GET_USERS,
         });
       }}>
-      {(addGame) => (
-        <Form<IAddGameRequest>>
+      {(addUser) => (
+        <Form<IAddUserRequest>>
           {({ setValue, formData }) => {
             return <div>
               <FormGroup>
@@ -45,7 +44,7 @@ const AddGame: React.SFC<{}> = () => {
                 type="button"
                 onClick={(e) => {
                   e.preventDefault();
-                  addGame({ variables: { name: formData.name } });
+                  addUser({ variables: { name: formData.name } });
                 }}
               >
                 Add
@@ -58,4 +57,5 @@ const AddGame: React.SFC<{}> = () => {
   );
 };
 
-export default AddGame;
+
+export default AddUser;

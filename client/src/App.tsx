@@ -65,7 +65,7 @@ class App extends React.Component<{}, IState> {
                   <Route exact={true} path="/" component={Games} />
                   <Route path="/games/:id" component={Game} />
                   <Route path="/characters" component={Characters} />
-                  <Route path="/users" component={Users} />
+                  <Route path="/players" component={Users} />
                 </FlexGrow>
               </Container>
             </StyledApp>
