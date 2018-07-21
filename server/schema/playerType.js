@@ -27,6 +27,9 @@ const PlayerType = new GraphQLObjectType({
     character: {
       type: CharacterType,
       resolve(parentValue, args) {
+        if (!parentValue.characterId) {
+          return '';
+        }
         return axios.get(`${uri}/characters/${parentValue.characterId}`)
           .then(res => res.data)
       }

@@ -19,7 +19,9 @@ mutation AddGame($name: String!, $numberOfPlayers: Int, $players: [String] ) {
     id,
     name,
     numberOfPlayers,
-    playerse
+    players {
+      id
+    }
   }
 }
 `;
@@ -67,7 +69,12 @@ const AddGame: React.SFC<{}> = () => {
                 type="button"
                 onClick={(e) => {
                   e.preventDefault();
-                  addGame({ variables: { ...formData } });
+                  addGame({
+                    variables: {
+                      ...formData,
+                      players: formData.players.map((p) => p.value),
+                    }
+                  });
 
                 }}
               >

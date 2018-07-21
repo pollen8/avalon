@@ -10,7 +10,8 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLNonNull,
-  GraphQLInt
+  GraphQLInt,
+  GraphQLList
 } = graphql;
 
 const mutation = new GraphQLObjectType({
@@ -41,15 +42,38 @@ const mutation = new GraphQLObjectType({
       type: GameType,
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) },
-        numberOfPlayers: { type: GraphQLInt }
+        numberOfPlayers: { type: GraphQLInt },
+        players: { type: new GraphQLList(GraphQLString) }
       },
-      resolve(parentValue, data) {
-        return axios.post(`${uri}/games`, data)
-          .then(res => {
-            console.log('add game', res.data);
+      resolve(parentValue, { players, ...data }) {
+        console.log('add game', data);
+        console.log('players', players);
+
+        return (async () => {
+          try {
+            const res = await axios.post(`${uri}/games`, data);
+            console.log('add game res', res.data);
+            await Promise.all(players.map(async (p) => {
+              const player = {
+                userId: p,
+                gameId: res.data.id,
+              }
+              console.log('player', player);
+              return await axios.post(`${uri}/players`, player);
+            }));
+            console.log('return game res', res.data);
             return res.data;
-          })
-          .catch(e => console.log('error', e));
+          } catch (e) {
+            console.log('error', e);
+          }
+        })();
+
+        // return axios.post(`${uri}/games`, data)
+        //   .then(res => {
+        //     console.log('add game', res.data);
+        //     return res.data;
+        //   })
+        //   .catch(e => console.log('error', e));
       }
     },
     deleteGame: {
