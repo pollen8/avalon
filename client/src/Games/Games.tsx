@@ -12,7 +12,6 @@ interface IResult {
   games: IGame[];
 }
 
-
 class Games extends Component<ChildProps<{}, IResult>, {}> {
   public render() {
     console.log('props', this.props);
