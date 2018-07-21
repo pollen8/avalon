@@ -9,6 +9,9 @@ const {
   GraphQLList,
 } = graphql;
 
+const uri = 'http://localhost:4001';
+
+
 const QuestType = new GraphQLObjectType({
   name: 'Quest',
   fields: () => ({
@@ -18,7 +21,7 @@ const QuestType = new GraphQLObjectType({
     rounds: {
       type: new GraphQLList(QuestRound),
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3000/rounds?questId=${parentValue.id}`)
+        return axios.get(`${uri}/rounds?questId=${parentValue.id}`)
           .then((res) => res.data);
       }
     }

@@ -3,10 +3,11 @@ import { Button, Form, FormGroup, Input, Label } from '@infosum/unikitty';
 import gql from 'graphql-tag';
 import * as React from 'react';
 import { Mutation } from 'react-apollo';
-// import { gamesQuery } from './Games';
+import { GET_GAMES } from './Games';
 
 
 interface IAddGameRequest {
+  id?: string;
   name: string;
 }
 
@@ -22,7 +23,15 @@ const AddGame: React.SFC<{}> = (props) => {
   // const { data, setValue } = props;
   console.log('addgame', props);
   return (
-    <Mutation mutation={ADD_GAME}>
+    <Mutation
+      mutation={ADD_GAME}
+      update={(cache, { data: { addGame } }) => {
+        const { games } = cache.readQuery<any>({ query: GET_GAMES });
+        cache.writeQuery({
+          data: { games: games.concat([addGame]) },
+          query: GET_GAMES,
+        });
+      }}>
       {(addGame, { data }) => (
         <Form<IAddGameRequest>>
           {({ setValue, formData }) => {

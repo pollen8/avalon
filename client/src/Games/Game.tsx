@@ -1,13 +1,13 @@
 import gql from 'graphql-tag';
 import * as React from 'react';
-import { graphql } from 'react-apollo';
+import { Query } from 'react-apollo';
 import { RouteComponentProps } from 'react-router';
 import AddPlayer from './AddPlayer';
 import PlayerList, { IPlayer } from './PlayerList';
 import QuestList, { IQuest } from './QuestList';
 
 
-const query = gql`query fetchGame($id: String!){
+const GET_GAME = gql`query fetchGame($id: String!){
   game(id: $id) {
     id
     name
@@ -60,40 +60,39 @@ interface IVariables {
 
 type InputProps = IInputProps & RouteComponentProps<any>;
 
-const withGame = graphql<InputProps, IResponse, IVariables>(query, {
-  options: ({ match }) => ({
-    variables: {
-      id: match.params.id,
-    }
-  }),
-  props: ({ data }) => ({ ...data })
-});
+class GameQuery extends Query<IResponse, IVariables> { }
 
-export default withGame(({ data }) => {
-  console.log('data', data);
-  // if (loading) {
-  //   return <p>Loading</p>;
-  // }
-  // if (error) {
-  //   return <p>Error</p>;
-  // }
-  // return <p>gaem.p..</p>;
+const Game: React.SFC<InputProps> = ({ match }) => {
+
   return (
-    <div>
-      <h1>Game</h1>
-      {/* <p>Number of players: {game.numberOfPlayers}</p> */}
-      <h2>Players</h2>
-      {/* <PlayerList players={game.players} /> */}
-      <PlayerList players={[]} />
-      <AddPlayer />
-      <h2>Quests</h2>
-      {/* <QuestList quests={game.quests} /> */}
-      <QuestList quests={[]} />
-    </div>
+    <GameQuery query={GET_GAME} variables={{ id: match.params.id }}>
+      {({ loading, error, data }) => {
+        console.log('game', data);
+        if (loading) {
+          return <p>Loadg</p>;
+        }
+        // if (error) {
+        //   return <p>Error</p>;
+        // }
+        return (
+          <div>
+            <h1>Game</h1>
+            {/* <p>Number of players: {game.numberOfPlayers}</p> */}
+            <h2>Players</h2>
+            {/* <PlayerList players={game.players} /> */}
+            <PlayerList players={[]} />
+            <AddPlayer />
+            <h2>Quests</h2>
+            {/* <QuestList quests={game.quests} /> */}
+            <QuestList quests={[]} />
+          </div>
+        );
+      }}
+    </GameQuery>
   );
+}
 
-});
-
+export default Game;
 
 // const HERO_QUERY = gql`
 //   query GetCharacter($episode: Episode!) {

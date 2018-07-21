@@ -36,8 +36,13 @@ const RootQuery = new GraphQLObjectType({
       type: GameType,
       args: { id: { type: GraphQLString } },
       resolve(parentValue, args) {
+        console.log('get game', args, `${uri}/games/${args.id}`);
         return axios.get(`${uri}/games/${args.id}`)
-          .then(resp => resp.data);
+          .then(resp => {
+            console.log('res', resp.data);
+            return resp.data;
+          })
+          .catch((e) => console.log(e));
       }
     },
     characters: {

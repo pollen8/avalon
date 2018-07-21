@@ -15,6 +15,8 @@ const {
   GraphQLNonNull
 } = graphql;
 
+const uri = 'http://localhost:4001';
+
 const GameType = new GraphQLObjectType({
   name: 'Game',
   fields: () => ({
@@ -25,14 +27,14 @@ const GameType = new GraphQLObjectType({
     players: {
       type: new GraphQLList(PlayerType),
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3000/games/${parentValue.id}/players`)
+        return axios.get(`${uri}/games/${parentValue.id}/players`)
           .then(res => res.data)
       }
     },
     quests: {
       type: new GraphQLList(QuestType),
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3000/games/${parentValue.id}/quests`)
+        return axios.get(`${uri}/games/${parentValue.id}/quests`)
           .then(res => res.data)
       }
     },

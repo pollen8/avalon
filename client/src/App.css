@@ -19,3 +19,7 @@ body {
   font-family: 'Roboto';
   src: local('MyFont'), url(./fonts/Roboto-Regular.ttf) format('ttf');
 }
+
+li a {
+  color: #fff;
+}

@@ -3,6 +3,9 @@ const TeamType = require('./teamType');
 const axios = require('axios');
 const VoteType = require('./voteType');
 
+const uri = 'http://localhost:4001';
+
+
 const {
   GraphQLObjectType,
   GraphQLString,
@@ -19,7 +22,7 @@ const QuestRoundType = new GraphQLObjectType({
     votes: {
       type: new GraphQLList(VoteType),
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3000/votes?roundId=${parentValue.id}`)
+        return axios.get(`${uri}/votes?roundId=${parentValue.id}`)
           .then((res) => res.data)
       }
     }

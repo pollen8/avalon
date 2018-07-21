@@ -10,6 +10,8 @@ const {
   GraphQLString,
 } = graphql;
 
+const uri = 'http://localhost:4001';
+
 const PlayerType = new GraphQLObjectType({
   name: 'Player',
   fields: () => ({
@@ -18,14 +20,14 @@ const PlayerType = new GraphQLObjectType({
     user: {
       type: UserType,
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3000/users/${parentValue.userId}`)
+        return axios.get(`${uri}/users/${parentValue.userId}`)
           .then(res => res.data)
       }
     },
     character: {
       type: CharacterType,
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3000/characters/${parentValue.characterId}`)
+        return axios.get(`${uri}/characters/${parentValue.characterId}`)
           .then(res => res.data)
       }
     }

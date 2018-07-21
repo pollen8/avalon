@@ -48,7 +48,7 @@ class Games extends Component<ChildProps<{}, IResult>, {}> {
   }
 }
 
-export const gamesQuery = gql`
+export const GET_GAMES = gql`
 {
   games {
     id
@@ -56,6 +56,6 @@ export const gamesQuery = gql`
   }
 }`;
 
-const withGames = graphql<{}, IResult, {}>(gamesQuery);
+const withGames = graphql<{}, IResult, {}>(GET_GAMES);
 
 export default withGames(Games);
