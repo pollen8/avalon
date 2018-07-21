@@ -26,6 +26,16 @@ const mutation = new GraphQLObjectType({
           .catch(e => console.log('error', e));
       }
     },
+    deleteUser: {
+      type: UserType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve(parentValue, { id }) {
+        return axios.delete(`${uri}/users/${id}`)
+          .then(res => res.data);
+      }
+    },
     addGame: {
       type: GameType,
       args: {

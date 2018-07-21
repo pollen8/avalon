@@ -4,6 +4,8 @@ import * as React from 'react';
 import { Component } from 'react';
 import { ChildProps, graphql } from 'react-apollo';
 import AddUser from './AddUser';
+import DeleteUser from './DeleteUser';
+
 interface IUser {
   id: string;
   name: string;
@@ -43,6 +45,7 @@ class Users extends Component<ChildProps<{}, IResult>, {}> {
                   <ListsItemLabel>
                     {user.name}
                   </ListsItemLabel>
+                  <DeleteUser id={user.id} />
                 </ListsItem>
               )}
           </ListsGroup>
