@@ -9,13 +9,15 @@ import { GET_GAMES } from './Games';
 interface IAddGameRequest {
   id?: string;
   name: string;
+  numberOfPlayers: number;
 }
 
 const ADD_GAME = gql`
-mutation AddGame($name: String!) {
-  addGame(name: $name) {
+mutation AddGame($name: String!, $numberOfPlayers: Int ) {
+  addGame(name: $name, numberOfPlayers: $numberOfPlayers) {
     id,
-    name
+    name,
+    numberOfPlayers
   }
 }
 `;
@@ -41,11 +43,19 @@ const AddGame: React.SFC<{}> = () => {
               </Label>
                 <Input onChange={(e) => setValue('name', e.target.value)} />
               </FormGroup>
+              <FormGroup>
+                <Label>
+                  Number of players
+                </Label>
+                <Input type="number"
+                  onChange={(e) => setValue('numberOfPlayers', Number(e.target.value))} />
+              </FormGroup>
               <Button
                 type="button"
                 onClick={(e) => {
                   e.preventDefault();
-                  addGame({ variables: { name: formData.name } });
+                  addGame({ variables: { ...formData } });
+
                 }}
               >
                 Add

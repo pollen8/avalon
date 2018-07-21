@@ -54,7 +54,8 @@ export const GET_GAMES = gql`
 {
   games {
     id
-    name
+    name,
+    numberOfPlayers
   }
 }`;
 

@@ -9,7 +9,8 @@ const uri = 'http://localhost:4001';
 const {
   GraphQLObjectType,
   GraphQLString,
-  GraphQLNonNull
+  GraphQLNonNull,
+  GraphQLInt
 } = graphql;
 
 const mutation = new GraphQLObjectType({
@@ -20,8 +21,8 @@ const mutation = new GraphQLObjectType({
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) },
       },
-      resolve(parentValue, { name }) {
-        return axios.post(`${uri}/users`, { name })
+      resolve(parentValue, data) {
+        return axios.post(`${uri}/users`, data)
           .then(res => res.data)
           .catch(e => console.log('error', e));
       }
@@ -40,9 +41,10 @@ const mutation = new GraphQLObjectType({
       type: GameType,
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) },
+        numberOfPlayers: { type: GraphQLInt }
       },
-      resolve(parentValue, { name }) {
-        return axios.post(`${uri}/games`, { name })
+      resolve(parentValue, data) {
+        return axios.post(`${uri}/games`, data)
           .then(res => {
             console.log('add game', res.data);
             return res.data;

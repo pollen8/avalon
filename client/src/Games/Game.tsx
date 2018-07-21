@@ -71,20 +71,21 @@ const Game: React.SFC<InputProps> = ({ match }) => {
         if (loading) {
           return <p>Loadg</p>;
         }
-        // if (error) {
-        //   return <p>Error</p>;
-        // }
+        if (error) {
+          return <p>Error</p>;
+        }
+        if (!data) {
+          return;
+        }
         return (
           <div>
             <h1>Game</h1>
-            {/* <p>Number of players: {game.numberOfPlayers}</p> */}
+            <p>Number of players: {data.game.numberOfPlayers}</p>
             <h2>Players</h2>
-            {/* <PlayerList players={game.players} /> */}
-            <PlayerList players={[]} />
+            <PlayerList players={data.game.players} />
             <AddPlayer />
             <h2>Quests</h2>
-            {/* <QuestList quests={game.quests} /> */}
-            <QuestList quests={[]} />
+            <QuestList quests={data.game.quests} />
           </div>
         );
       }}
