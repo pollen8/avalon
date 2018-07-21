@@ -4,23 +4,31 @@ import gql from 'graphql-tag';
 import * as React from 'react';
 import { Mutation } from 'react-apollo';
 import { GET_GAMES } from './Games';
-
+import PlayerSelect from './PlayerSelect';
 
 interface IAddGameRequest {
   id?: string;
   name: string;
   numberOfPlayers: number;
+  players: Array<{ value: string, label: string }>,
 }
 
 const ADD_GAME = gql`
-mutation AddGame($name: String!, $numberOfPlayers: Int ) {
-  addGame(name: $name, numberOfPlayers: $numberOfPlayers) {
+mutation AddGame($name: String!, $numberOfPlayers: Int, $players: [String] ) {
+  addGame(name: $name, numberOfPlayers: $numberOfPlayers, players: $players) {
     id,
     name,
-    numberOfPlayers
+    numberOfPlayers,
+    playerse
   }
 }
 `;
+
+const initialData: IAddGameRequest = {
+  name: '',
+  numberOfPlayers: 10,
+  players: [],
+};
 
 const AddGame: React.SFC<{}> = () => {
   return (
@@ -34,7 +42,7 @@ const AddGame: React.SFC<{}> = () => {
         });
       }}>
       {(addGame) => (
-        <Form<IAddGameRequest>>
+        <Form<IAddGameRequest> initialData={initialData}>
           {({ setValue, formData }) => {
             return <div>
               <FormGroup>
@@ -48,8 +56,13 @@ const AddGame: React.SFC<{}> = () => {
                   Number of players
                 </Label>
                 <Input type="number"
+                  value={formData.numberOfPlayers}
                   onChange={(e) => setValue('numberOfPlayers', Number(e.target.value))} />
               </FormGroup>
+
+              <PlayerSelect
+                value={formData.players.map((p) => p.value)}
+                onChange={(e) => setValue('players', e)} />
               <Button
                 type="button"
                 onClick={(e) => {
