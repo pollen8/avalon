@@ -11,40 +11,19 @@
       "id": "pdpVbDB"
     },
     {
-      "name": "a",
-      "id": "l47GQJS"
+      "name": "asdfasdf",
+      "numberOfPlayers": 10,
+      "id": "i9Uddys"
     },
     {
-      "name": "1",
-      "id": "suEp1~P"
+      "name": "sdf",
+      "numberOfPlayers": 10,
+      "id": "G7QPxTB"
     },
     {
-      "name": "sdfasdf",
-      "id": "cQMs4s0"
-    },
-    {
-      "name": "sdfsadfasdf",
-      "id": "c5P1xNX"
-    },
-    {
-      "name": "sdfsadfasdf",
-      "id": "43iqIb4"
-    },
-    {
-      "name": "AAAAAAA",
-      "id": "dxVD93O"
-    },
-    {
-      "name": "AAAAAAA",
-      "id": "KWmWQnE"
-    },
-    {
-      "name": "BBBBBB",
-      "id": "NGMAw5s"
-    },
-    {
-      "name": "NEW GAME",
-      "id": "ZyWMkAn"
+      "name": "abc",
+      "numberOfPlayers": 10,
+      "id": "Z_ymOYQ"
     }
   ],
   "teams": [
@@ -81,8 +60,20 @@
       "name": "Linh"
     },
     {
-      "id": "3",
-      "name": "George"
+      "name": "Eike",
+      "id": "sxMKTHn"
+    },
+    {
+      "name": "Ellen",
+      "id": "g6gPjgd"
+    },
+    {
+      "name": "David",
+      "id": "0suPwgu"
+    },
+    {
+      "name": "Martin",
+      "id": "BOfzri3"
     }
   ],
   "players": [
@@ -97,6 +88,41 @@
       "gameId": "1",
       "userId": "2",
       "characterId": "2"
+    },
+    {
+      "userId": "2",
+      "gameId": "i9Uddys",
+      "id": "Hw78f4C"
+    },
+    {
+      "userId": "0suPwgu",
+      "gameId": "i9Uddys",
+      "id": "Hx5EOPM"
+    },
+    {
+      "userId": "g6gPjgd",
+      "gameId": "G7QPxTB",
+      "id": "htZCUjl"
+    },
+    {
+      "userId": "sxMKTHn",
+      "gameId": "G7QPxTB",
+      "id": "zIN7tL4"
+    },
+    {
+      "userId": "g6gPjgd",
+      "gameId": "Z_ymOYQ",
+      "id": "TJwkQ4g"
+    },
+    {
+      "userId": "0suPwgu",
+      "gameId": "Z_ymOYQ",
+      "id": "C2mhmJL"
+    },
+    {
+      "userId": "1",
+      "gameId": "Z_ymOYQ",
+      "id": "mVDdtXd"
     }
   ],
   "quests": [
@@ -106,36 +132,6 @@
       "winner": "evil"
     }
   ],
-  "rounds": [
-    {
-      "id": "1",
-      "questId": "1",
-      "roundNumber": "1"
-    },
-    {
-      "id": "1",
-      "questId": "2",
-      "roundNumber": "1"
-    }
-  ],
-  "votes": [
-    {
-      "id": "1",
-      "roundId": "1",
-      "playerId": "1",
-      "accept": true
-    },
-    {
-      "id": "2",
-      "roundId": "1",
-      "playerId": "2",
-      "accept": false
-    },
-    {
-      "id": "2",
-      "roundId": "12",
-      "playerId": "20",
-      "accept": false
-    }
-  ]
+  "rounds": [],
+  "votes": []
 }
