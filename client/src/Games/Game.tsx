@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Query } from 'react-apollo';
 import { RouteComponentProps } from 'react-router';
 import AddPlayer from './AddPlayer';
+import AssignCharacters from './AssignCharacters';
 import PlayerList, { IPlayer } from './PlayerList';
 import QuestList, { IQuest } from './QuestList';
 
@@ -81,6 +82,7 @@ const Game: React.SFC<InputProps> = ({ match }) => {
           <div>
             <h1>Game</h1>
             <p>Number of players: {data.game.numberOfPlayers}</p>
+            <AssignCharacters game={data.game} />
             <h2>Players</h2>
             <PlayerList players={data.game.players} />
             <AddPlayer />

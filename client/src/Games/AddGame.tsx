@@ -53,33 +53,27 @@ const AddGame: React.SFC<{}> = () => {
               </Label>
                 <Input onChange={(e) => setValue('name', e.target.value)} />
               </FormGroup>
-              <FormGroup>
-                <Label>
-                  Number of players
-                </Label>
-                <Input type="number"
-                  value={formData.numberOfPlayers}
-                  onChange={(e) => setValue('numberOfPlayers', Number(e.target.value))} />
-              </FormGroup>
-
               <PlayerSelect
                 value={formData.players.map((p) => p.value)}
                 onChange={(e) => setValue('players', e)} />
-              <Button
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  addGame({
-                    variables: {
-                      ...formData,
-                      players: formData.players.map((p) => p.value),
-                    }
-                  });
+              <FormGroup>
+                <Button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    addGame({
+                      variables: {
+                        ...formData,
+                        numberOfPlayers: formData.players.length,
+                        players: formData.players.map((p) => p.value),
+                      }
+                    });
 
-                }}
-              >
-                Add
+                  }}
+                >
+                  Add
           </Button>
+              </FormGroup>
             </div>
           }}
         </Form>

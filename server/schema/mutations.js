@@ -98,6 +98,23 @@ const mutation = new GraphQLObjectType({
           id,
         }).then(res => res.data);
       }
+    },
+    updatePlayerInGame: {
+      type: PlayerType,
+      args: {
+        id: { type: GraphQLString },
+        user: { type: GraphQLString },
+        character: { type: GraphQLString },
+      },
+      resolve(parentValue, { id, user, character }) {
+        console.log('updatePlayerInGame', id, user, character, `${uri}/player/${id}`);
+        return axios.put(`${uri}/player/${id}`, {
+          id,
+          user,
+          character,
+        }).then(res => res.data)
+          .catch(e => console.log('error', e.error));
+      }
     }
   }
 });

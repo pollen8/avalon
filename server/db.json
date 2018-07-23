@@ -11,19 +11,9 @@
       "id": "pdpVbDB"
     },
     {
-      "name": "asdfasdf",
-      "numberOfPlayers": 10,
-      "id": "i9Uddys"
-    },
-    {
-      "name": "sdf",
-      "numberOfPlayers": 10,
-      "id": "G7QPxTB"
-    },
-    {
-      "name": "abc",
-      "numberOfPlayers": 10,
-      "id": "Z_ymOYQ"
+      "name": "real game",
+      "numberOfPlayers": 6,
+      "id": "iSnONq2"
     }
   ],
   "teams": [
@@ -48,6 +38,42 @@
       "isGood": true,
       "name": "Perceval",
       "description": "Knows Merlin and Morgana"
+    },
+    {
+      "id": "3",
+      "isGood": true,
+      "name": "Loyal servant of Arthur",
+      "description": "Knows nothing"
+    },
+    {
+      "id": "4",
+      "isGood": false,
+      "name": "Morgana",
+      "description": "Is known to Perceval"
+    },
+    {
+      "id": "5",
+      "isGood": false,
+      "name": "Mordred",
+      "description": "Not known to Merlin"
+    },
+    {
+      "id": "6",
+      "isGood": false,
+      "name": "Oberon",
+      "description": "Unkown to other minions of Mordred"
+    },
+    {
+      "id": "7",
+      "isGood": false,
+      "name": "Minion of Mordred",
+      "description": "Knows other minions of Modred, except Oberon"
+    },
+    {
+      "id": "8",
+      "isGood": false,
+      "name": "Assasin",
+      "description": "Can attempt to kill Merlin at the end of the game"
     }
   ],
   "users": [
@@ -90,39 +116,34 @@
       "characterId": "2"
     },
     {
+      "userId": "1",
+      "gameId": "iSnONq2",
+      "id": "xodiEdz"
+    },
+    {
       "userId": "2",
-      "gameId": "i9Uddys",
-      "id": "Hw78f4C"
-    },
-    {
-      "userId": "0suPwgu",
-      "gameId": "i9Uddys",
-      "id": "Hx5EOPM"
-    },
-    {
-      "userId": "g6gPjgd",
-      "gameId": "G7QPxTB",
-      "id": "htZCUjl"
+      "gameId": "iSnONq2",
+      "id": "DKFcxlJ"
     },
     {
       "userId": "sxMKTHn",
-      "gameId": "G7QPxTB",
-      "id": "zIN7tL4"
+      "gameId": "iSnONq2",
+      "id": "_5sbVcS"
     },
     {
       "userId": "g6gPjgd",
-      "gameId": "Z_ymOYQ",
-      "id": "TJwkQ4g"
+      "gameId": "iSnONq2",
+      "id": "zsDYWNz"
     },
     {
       "userId": "0suPwgu",
-      "gameId": "Z_ymOYQ",
-      "id": "C2mhmJL"
+      "gameId": "iSnONq2",
+      "id": "vsNLLh_"
     },
     {
-      "userId": "1",
-      "gameId": "Z_ymOYQ",
-      "id": "mVDdtXd"
+      "userId": "BOfzri3",
+      "gameId": "iSnONq2",
+      "id": "nVSJKVi"
     }
   ],
   "quests": [

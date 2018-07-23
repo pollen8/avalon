@@ -48,7 +48,7 @@ class Characters extends Component<ChildProps<{}, IResponse>, {}> {
   }
 }
 
-const query = gql`
+export const GET_CHARACTER = gql`
 {
   characters {
     id
@@ -58,6 +58,6 @@ const query = gql`
   }
 }`;
 
-const withCharacters = graphql<{}, IResponse, {}>(query);
+export const withCharacters = graphql<{}, IResponse, {}>(GET_CHARACTER);
 
 export default withCharacters(Characters);
