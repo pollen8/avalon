@@ -4,7 +4,6 @@ import * as React from 'react';
 import { Component } from 'react';
 import { ChildProps, graphql } from 'react-apollo';
 import { NavLink } from 'react-router-dom';
-import AddGame from './AddGame';
 import DeleteGame from './DeleteGame';
 import { IGame } from './Game';
 
@@ -32,7 +31,6 @@ class Games extends Component<ChildProps<{}, IResult>, {}> {
           <CardTitle>
             Games
             </CardTitle>
-          <AddGame />
           <ListsGroup>
             {this.props.data.games.map(({ id, name }) =>
               <ListsItem key={id}>

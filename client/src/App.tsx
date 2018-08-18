@@ -7,8 +7,10 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import './App.css';
 import Characters from './Characters/Characters';
+import AddGame from './Games/AddGame';
 import Game from './Games/Game';
 import Games from './Games/Games';
+import QuestList from './Games/QuestList';
 import Header from './Header';
 import Menu from './Menu';
 import Container from './ui/Container';
@@ -62,8 +64,10 @@ class App extends React.Component<{}, IState> {
                   toggle={() => this.setState({ isMenuOpen: !this.state.isMenuOpen })}
                 />
                 <FlexGrow>
-                  <Route exact={true} path="/" component={Games} />
-                  <Route path="/games/:id" component={Game} />
+                  <Route exact={true} path="/" component={AddGame} />
+                  <Route exact={true} path="/games" component={Games} />
+                  <Route exact={true} path="/games/:id" component={Game} />
+                  <Route exact={true} path="/games/:id/quest" component={QuestList} />
                   <Route path="/characters" component={Characters} />
                   <Route path="/players" component={Users} />
                 </FlexGrow>

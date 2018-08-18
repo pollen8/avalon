@@ -47,6 +47,7 @@ const AddGame: React.SFC<{}> = () => {
         <Form<IAddGameRequest> initialData={initialData}>
           {({ setValue, formData }) => {
             return <div>
+              <h1>New Game</h1>
               <FormGroup>
                 <Label>
                   Name:

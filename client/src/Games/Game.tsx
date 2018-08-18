@@ -2,13 +2,13 @@ import gql from 'graphql-tag';
 import * as React from 'react';
 import { Query } from 'react-apollo';
 import { RouteComponentProps } from 'react-router';
-import AddPlayer from './AddPlayer';
+import { NavLink } from 'react-router-dom';
 import AssignCharacters from './AssignCharacters';
 import PlayerList, { IPlayer } from './PlayerList';
-import QuestList, { IQuest } from './QuestList';
+import { IQuest } from './QuestList';
 
 
-const GET_GAME = gql`query fetchGame($id: String!){
+export const GET_GAME = gql`query fetchGame($id: String!){
   game(id: $id) {
     id
     name
@@ -59,9 +59,9 @@ interface IVariables {
   id: string;
 }
 
-type InputProps = IInputProps & RouteComponentProps<any>;
+export type InputProps = IInputProps & RouteComponentProps<any>;
 
-class GameQuery extends Query<IResponse, IVariables> { }
+export class GameQuery extends Query<IResponse, IVariables> { }
 
 const Game: React.SFC<InputProps> = ({ match }) => {
 
@@ -70,7 +70,7 @@ const Game: React.SFC<InputProps> = ({ match }) => {
       {({ loading, error, data }) => {
         console.log('game', data);
         if (loading) {
-          return <p>Loadg</p>;
+          return <p>Loading</p>;
         }
         if (error) {
           return <p>Error</p>;
@@ -85,9 +85,7 @@ const Game: React.SFC<InputProps> = ({ match }) => {
             <AssignCharacters game={data.game} />
             <h2>Players</h2>
             <PlayerList players={data.game.players} />
-            <AddPlayer />
-            <h2>Quests</h2>
-            <QuestList quests={data.game.quests} />
+            <NavLink to={`/games/${data.game.id}/quest`}>Start quests</NavLink>
           </div>
         );
       }}

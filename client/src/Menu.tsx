@@ -21,7 +21,8 @@ class Menu extends Component<IProps, {}> {
       >
 
         <MenuList>
-          <MenuItem><NavLink to="/">Games</NavLink></MenuItem>
+          <MenuItem><NavLink to="/">Home</NavLink></MenuItem>
+          <MenuItem><NavLink to="/games">Games</NavLink></MenuItem>
           <MenuItem><NavLink to="/characters">Characters</NavLink></MenuItem>
           <MenuItem><NavLink to="/players">Players</NavLink></MenuItem>
         </MenuList>

@@ -94,16 +94,14 @@
   ],
   "players": [
     {
-      "id": 3,
-      "gameId": "1",
       "userId": "1",
-      "characterId": "2"
+      "gameId": 1,
+      "id": 3
     },
     {
-      "id": 4,
-      "gameId": "1",
       "userId": "2",
-      "characterId": "2"
+      "gameId": 1,
+      "id": 4
     },
     {
       "userId": "2",

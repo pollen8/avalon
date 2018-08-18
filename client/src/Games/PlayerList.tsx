@@ -24,11 +24,12 @@ const PlayerList: React.SFC<IProps> = ({ players }) => {
 
   return (
     <ul>
-      {players.map(({ id, user, character }) =>
-        <li key={id}>
-          {user.name}: {character.name}
-        </li>
-      )}
+      {
+        players.map(({ id, user, character }) =>
+          <li key={id}>
+            {user.name}: {character.name}
+          </li>
+        )}
     </ul>
   );
 };

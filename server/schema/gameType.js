@@ -23,8 +23,12 @@ const GameType = new GraphQLObjectType({
     players: {
       type: new GraphQLList(PlayerType),
       resolve(parentValue) {
-        return axios.get(`${uri}/games/${parentValue.id}/players`)
-          .then(res => res.data)
+        return axios.get(`${uri}/players?gameId=${parentValue.id}`)
+          .then(res => {
+            console.log('games players', res.data);
+            return res.data;
+          })
+          .catch(e => console.log(e))
       }
     },
     quests: {
@@ -32,6 +36,7 @@ const GameType = new GraphQLObjectType({
       resolve(parentValue) {
         return axios.get(`${uri}/games/${parentValue.id}/quests`)
           .then(res => res.data)
+          .catch(e => console.log(e))
       }
     },
   })

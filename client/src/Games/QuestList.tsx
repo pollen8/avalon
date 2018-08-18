@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { GameQuery, GET_GAME, InputProps } from './Game';
 import RoundList from './RoundList';
 
 export interface ITeam {
@@ -27,21 +28,36 @@ export interface IQuest {
   rounds: IQuestRound[];
 }
 
-interface IProps {
-  quests: IQuest[];
-}
-
-const QuestList: React.SFC<IProps> = ({ quests }) => {
-  console.log('quests', quests);
+const QuestList: React.SFC<InputProps> = ({ match }) => {
   return (
-    <ul>
-      {quests.map(({ id, rounds }) =>
-        <li key={id}>
-          {id}
-          <RoundList rounds={rounds} />
-        </li>
-      )}
-    </ul>
+    <GameQuery query={GET_GAME} variables={{ id: match.params.id }}>
+      {({ loading, error, data }) => {
+        if (loading) {
+          return <p>Loading</p>;
+        }
+        if (error) {
+          return <p>Error</p>;
+        }
+        if (!data) {
+          return;
+        }
+        console.log(data.game);
+        return <div>
+          <h1>Quests</h1>
+          <ul>
+            {
+              data.game.quests.map(({ id, rounds }) =>
+                <li key={id}>
+                  {id}
+                  <RoundList rounds={rounds} />
+                </li>
+              )
+            }
+          </ul>
+        </div>
+      }}
+    </GameQuery>
+
   );
 };
 
