@@ -87,6 +87,7 @@ const AddGame: React.SFC<RouteComponentProps<any>> = ({ history }) => {
           contract={contract}
         >
           {({ setValue, formData, validate, errors }) => {
+            console.log('formrdata', formData);
             return <div>
               <h1>New Game</h1>
               <FormGroup>
@@ -109,7 +110,6 @@ const AddGame: React.SFC<RouteComponentProps<any>> = ({ history }) => {
                   type="button"
                   onClick={async (e) => {
                     try {
-                      e.preventDefault();
                       await validate(formData);
                       const game = {
                         variables: {

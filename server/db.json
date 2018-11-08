@@ -1,8 +1,8 @@
 {
   "games": [
     {
-      "name": "Game 1",
-      "numberOfPlayers": 2,
+      "name": "everyone1",
+      "numberOfPlayers": 6,
       "id": 1
     }
   ],
@@ -20,48 +20,56 @@
     {
       "id": "1",
       "isGood": true,
+      "isUnique": true,
       "name": "Merlin",
       "description": "Knows evil"
     },
     {
       "id": "2",
       "isGood": true,
+      "isUnique": true,
       "name": "Perceval",
       "description": "Knows Merlin and Morgana"
     },
     {
       "id": "3",
       "isGood": true,
+      "isUnique": false,
       "name": "Loyal servant of Arthur",
       "description": "Knows nothing"
     },
     {
       "id": "4",
       "isGood": false,
+      "isUnique": true,
       "name": "Morgana",
       "description": "Is known to Perceval"
     },
     {
       "id": "5",
       "isGood": false,
+      "isUnique": true,
       "name": "Mordred",
       "description": "Not known to Merlin"
     },
     {
       "id": "6",
       "isGood": false,
+      "isUnique": true,
       "name": "Oberon",
       "description": "Unkown to other minions of Mordred"
     },
     {
       "id": "7",
       "isGood": false,
+      "isUnique": false,
       "name": "Minion of Mordred",
       "description": "Knows other minions of Modred, except Oberon"
     },
     {
       "id": "8",
       "isGood": false,
+      "isUnique": true,
       "name": "Assasin",
       "description": "Can attempt to kill Merlin at the end of the game"
     }
@@ -94,21 +102,37 @@
   ],
   "players": [
     {
-      "id": 3,
+      "id": 1,
+      "gameId": "1",
+      "userId": "g6gPjgd",
+      "characterId": "1"
+    },
+    {
+      "id": 2,
       "gameId": "1",
       "userId": "1",
-      "characterId": "2"
+      "characterId": "4"
+    },
+    {
+      "userId": "2",
+      "gameId": 1,
+      "id": 3
     },
     {
       "id": 4,
       "gameId": "1",
-      "userId": "2",
-      "characterId": "2"
+      "userId": "sxMKTHn",
+      "characterId": "3"
     },
     {
-      "userId": "2",
-      "gameId": 2,
+      "userId": "0suPwgu",
+      "gameId": 1,
       "id": 5
+    },
+    {
+      "userId": "BOfzri3",
+      "gameId": 1,
+      "id": 6
     }
   ],
   "quests": [],

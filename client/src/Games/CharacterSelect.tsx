@@ -1,6 +1,12 @@
-import { FormGroup, Label, VirtualizedSelect } from '@infosum/unikitty';
 import * as React from 'react';
-import { Query } from "react-apollo";
+import { Query } from 'react-apollo';
+
+import {
+  FormGroup,
+  Input,
+  Label,
+} from '@infosum/unikitty';
+
 import { GET_CHARACTER } from '../Characters/Characters';
 import { IPlayer } from './PlayerList';
 
@@ -24,7 +30,8 @@ const CharacterSelect: React.SFC<IProps> = ({ onChange, value, players }) => {
         return (
           <FormGroup>
             <Label>Character</Label>
-            <VirtualizedSelect
+            <Input
+              type="select"
               value={value}
               options={options}
               onChange={onChange} />

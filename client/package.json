@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@infosum/unikitty": "^3.0.14",
+    "@infosum/unikitty": "^5.1.12",
     "@types/node": "*",
     "@types/prop-types": "^15.5.3",
     "@types/react": "*",
@@ -19,7 +19,8 @@
     "react-apollo": "^2.1.9",
     "react-dom": "^16.4.1",
     "react-router-dom": "^4.3.1",
-    "recompose": "^0.27.1"
+    "recompose": "^0.27.1",
+    "styled-components": "^4.0.3"
   },
   "devDependencies": {
     "@types/jest": "^23.3.0",

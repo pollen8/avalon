@@ -1,7 +1,18 @@
-import { Button, Form, FormGroup, Input, Label } from '@infosum/unikitty';
 import gql from 'graphql-tag';
 import * as React from 'react';
-import { graphql, MutateProps } from 'react-apollo';
+import {
+  graphql,
+  MutateProps,
+} from 'react-apollo';
+
+import {
+  Button,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+} from '@infosum/unikitty';
+
 import { IPlayer } from './PlayerList';
 
 const initialData: IPlayer = {
@@ -25,7 +36,10 @@ const AddPlayer: React.SFC<MutateProps<any>> = (props) => {
             <Label>Player:</Label>
             <Input
               value={formData.user.name}
-              onChange={(e) => setValue('player', e.target.value)} />
+              onChange={(e) => setValue('user', {
+                ...formData.user,
+                name: e.target.value,
+              })} />
           </FormGroup>
           <Button
             onClick={() => {
@@ -34,7 +48,10 @@ const AddPlayer: React.SFC<MutateProps<any>> = (props) => {
                   gamId: 1,
                   userId: 2,
                 }
-              }).then(() => setValue('player', ''));
+              }).then(() => setValue('user', {
+                id: '',
+                name: '',
+              }));
             }}
           >
             Add

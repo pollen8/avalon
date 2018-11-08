@@ -4,8 +4,8 @@ import { Query } from 'react-apollo';
 import {
   FormFeedback,
   FormGroup,
+  Input,
   Label,
-  VirtualizedSelect,
 } from '@infosum/unikitty';
 
 import { GET_USERS } from '../Users/Users';
@@ -30,7 +30,8 @@ const PlayerSelect: React.SFC<IProps> = ({ onChange, value, errors }) => {
         return (
           <FormGroup>
             <Label>Players</Label>
-            <VirtualizedSelect
+            <Input
+              type="selecct"
               value={value}
               multi={true}
               options={options}

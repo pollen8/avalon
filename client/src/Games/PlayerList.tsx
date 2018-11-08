@@ -1,4 +1,19 @@
 import * as React from 'react';
+import styled from 'styled-components';
+
+import {
+  CircleIcon,
+  CrossIcon,
+  IconStack,
+  TickIcon,
+} from '@infosum/unikitty';
+
+const Li = styled.li`
+display: flex;
+> div > div {
+  display: block
+}
+`;
 
 export interface ICharacter {
   id: string;
@@ -26,9 +41,21 @@ const PlayerList: React.SFC<IProps> = ({ players }) => {
     <ul>
       {
         players.map(({ id, user, character }) =>
-          <li key={id}>
-            {user.name}: {character.name}
-          </li>
+          <Li key={id} >
+            <div style={{ width: '25px' }}>
+              {character.name ? <IconStack>
+                <CircleIcon width="15" height="15" />
+                <TickIcon fill="#fff" width="10" height="10" />
+              </IconStack> :
+                <IconStack>
+                  <CircleIcon width="15" height="15" fill="red" />
+                  <CrossIcon fill="#fff" width="10" height="10" />
+                </IconStack>}
+            </div>
+            <div>
+              {user.name}
+            </div>
+          </Li>
         )}
     </ul>
   );

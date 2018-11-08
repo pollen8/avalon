@@ -1,7 +1,15 @@
-import { Button, Form, FormGroup, Label, VirtualizedSelect } from '@infosum/unikitty';
 import gql from 'graphql-tag';
 import * as React from 'react';
 import { Mutation } from 'react-apollo';
+
+import {
+  Button,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+} from '@infosum/unikitty';
+
 import CharacterSelect from './CharacterSelect';
 import { IGame } from './Game';
 
@@ -29,6 +37,7 @@ mutation UpdatePlayerInGame($id: String, $userId: String, $characterId: String, 
 }
 `;
 
+// Number of good/bad players based on # of people playing.
 const teamMap = {
   5: { good: 3, evil: 2 },
   6: { good: 4, evil: 2 },
@@ -57,7 +66,7 @@ const AssignCharacters: React.SFC<{ game: IGame }> = ({ game }) => {
       >
         {(updatePlayerInGame) => (
           <Form<IUpdatePlayerRequest> initialData={initialData}>
-            {({ setValue, formData }) => {
+            {({ setValue, formData, reset }) => {
               const unassignedPlayers = game.players.map((p) => ({
                 label: p.user.name,
                 value: p.user.id,
@@ -67,7 +76,8 @@ const AssignCharacters: React.SFC<{ game: IGame }> = ({ game }) => {
                   <Label>
                     Player:
                   </Label>
-                  <VirtualizedSelect
+                  <Input
+                    type="select"
                     value={formData.userId}
                     options={unassignedPlayers}
                     onChange={(e) => setValue('userId', e.value)} />
@@ -91,6 +101,7 @@ const AssignCharacters: React.SFC<{ game: IGame }> = ({ game }) => {
                       updatePlayerInGame({
                         variables
                       });
+                      reset();
 
                     }}
                   >
