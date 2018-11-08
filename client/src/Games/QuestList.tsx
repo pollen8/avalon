@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { GameQuery, GET_GAME, InputProps } from './Game';
+
+import AddQuest from './AddQuest';
+import {
+  GameQuery,
+  GET_GAME,
+  InputProps,
+} from './Game';
 import RoundList from './RoundList';
 
 export interface ITeam {
@@ -41,9 +47,9 @@ const QuestList: React.SFC<InputProps> = ({ match }) => {
         if (!data) {
           return;
         }
-        console.log(data.game);
         return <div>
-          <h1>Quests</h1>
+          <h2>Quests</h2>
+          <AddQuest />
           <ul>
             {
               data.game.quests.map(({ id, rounds }) =>
