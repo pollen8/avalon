@@ -1,8 +1,11 @@
 const GameType = require('./gameType');
 const PlayerType = require('./playerType');
 const UserType = require('./userType');
+const QuestType = require('./questType');
 const graphql = require('graphql');
 const axios = require('axios');
+const TeamType = require('./teamType');
+const QuestRound = require('./questRoundType');
 
 const uri = 'http://localhost:4001';
 
@@ -108,7 +111,6 @@ const mutation = new GraphQLObjectType({
         characterId: { type: GraphQLString },
       },
       resolve(parentValue, { id, userId, characterId, gameId }) {
-        console.log('updatePlayerInGame', id, userId, characterId, gameId, `${uri}/players/${id}`);
         const player = {
           id,
           gameId,
@@ -117,12 +119,29 @@ const mutation = new GraphQLObjectType({
         };
         return axios.put(`${uri}/players/${id}`, player)
           .then(res => {
-            console.log('return ', {
-              ...player,
-              ...res.data
-            });
             return {
               ...player,
+              ...res.data
+            };
+          })
+          .catch(e => console.log('error', e));
+      }
+    },
+    addQuest: {
+      type: QuestType,
+      args: {
+        id: { type: GraphQLString },
+        gameId: { type: GraphQLString },
+        winner: { type: GraphQLString },
+      },
+      resolve(parentValue, { id, gameId, winner, rounds }) {
+        const round = {
+          id, gameId, winner, rounds,
+        };
+        return axios.post(`${uri}/quests/`, round)
+          .then(res => {
+            return {
+              ...round,
               ...res.data
             };
           })
