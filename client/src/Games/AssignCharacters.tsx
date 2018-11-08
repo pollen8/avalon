@@ -51,6 +51,7 @@ const AssignCharacters: React.SFC<{ game: IGame }> = ({ game }) => {
   return (
     <div>
       <h2>Assign characters</h2>
+      <p>Pass the phone around and ask each player to select their character</p>
       <Mutation
         mutation={EDIT_GAME}
       >

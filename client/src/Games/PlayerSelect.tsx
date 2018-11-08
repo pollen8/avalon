@@ -18,15 +18,16 @@ const PlayerSelect: React.SFC<IProps> = ({ onChange, value }) => {
           return `Error! ${error.message}`;
         }
         const options = data.users.map((u) => ({ value: u.id, label: u.name }))
-        console.log(data);
-        return <FormGroup>
-          <Label>Players</Label>
-          <VirtualizedSelect
-            value={value}
-            multi={true}
-            options={options}
-            onChange={onChange} />
-        </FormGroup>
+        return (
+          <FormGroup>
+            <Label>Players</Label>
+            <VirtualizedSelect
+              value={value}
+              multi={true}
+              options={options}
+              onChange={onChange} />
+          </FormGroup>
+        )
       }}
     </Query>
   );

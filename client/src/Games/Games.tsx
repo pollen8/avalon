@@ -1,9 +1,20 @@
-import { Card, CardBody, CardTitle, ListsGroup, ListsItem, ListsItemLabel } from '@infosum/unikitty';
 import gql from 'graphql-tag';
 import * as React from 'react';
-import { Component } from 'react';
-import { ChildProps, graphql } from 'react-apollo';
+import {
+  ChildProps,
+  graphql,
+} from 'react-apollo';
 import { NavLink } from 'react-router-dom';
+
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  ListsGroup,
+  ListsItem,
+  ListsItemLabel,
+} from '@infosum/unikitty';
+
 import DeleteGame from './DeleteGame';
 import { IGame } from './Game';
 
@@ -11,9 +22,9 @@ interface IResult {
   games: IGame[];
 }
 
-class Games extends Component<ChildProps<{}, IResult>, {}> {
+class Games extends React.Component<ChildProps<{}, IResult>, {}> {
   public render() {
-    console.log('props', this.props);
+    console.log('game props', this.props);
 
     if (!this.props.data) {
       return null;
@@ -52,8 +63,16 @@ export const GET_GAMES = gql`
 {
   games {
     id
-    name,
+    name
     numberOfPlayers
+  }
+}`;
+
+export const GET_GAME_QUESTS = gql`
+{
+  quests {
+    id
+    gameId
   }
 }`;
 

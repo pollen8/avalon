@@ -1,8 +1,19 @@
-// import Form, { IInjectedProps } from '../Form';
-import { Button, Form, FormGroup, Input, Label } from '@infosum/unikitty';
 import gql from 'graphql-tag';
 import * as React from 'react';
 import { Mutation } from 'react-apollo';
+import {
+  RouteComponentProps,
+  withRouter,
+} from 'react-router-dom';
+
+import {
+  Button,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+} from '@infosum/unikitty';
+
 import { GET_GAMES } from './Games';
 import PlayerSelect from './PlayerSelect';
 
@@ -32,7 +43,7 @@ const initialData: IAddGameRequest = {
   players: [],
 };
 
-const AddGame: React.SFC<{}> = () => {
+const AddGame: React.SFC<RouteComponentProps<any>> = ({ history }) => {
   return (
     <Mutation
       mutation={ADD_GAME}
@@ -42,6 +53,9 @@ const AddGame: React.SFC<{}> = () => {
           data: { games: games.concat([addGame]) },
           query: GET_GAMES,
         });
+      }}
+      onCompleted={(data) => {
+        history.push(`/games/${data.addGame.id}`);
       }}>
       {(addGame) => (
         <Form<IAddGameRequest> initialData={initialData}>
@@ -62,13 +76,14 @@ const AddGame: React.SFC<{}> = () => {
                   type="button"
                   onClick={(e) => {
                     e.preventDefault();
-                    addGame({
+                    const game = {
                       variables: {
                         ...formData,
                         numberOfPlayers: formData.players.length,
                         players: formData.players.map((p) => p.value),
                       }
-                    });
+                    };
+                    addGame(game);
 
                   }}
                 >
@@ -83,4 +98,4 @@ const AddGame: React.SFC<{}> = () => {
   );
 };
 
-export default AddGame;
+export default withRouter(AddGame);

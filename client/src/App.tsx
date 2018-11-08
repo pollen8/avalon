@@ -1,11 +1,16 @@
+import './App.css';
+
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import ApolloClient from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import * as React from 'react';
 import { ApolloProvider } from 'react-apollo';
-import { BrowserRouter, Route } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Route,
+} from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
-import './App.css';
+
 import Characters from './Characters/Characters';
 import AddGame from './Games/AddGame';
 import Game from './Games/Game';
@@ -50,7 +55,7 @@ class App extends React.Component<{}, IState> {
   }
   public render() {
     return (
-      <ApolloProvider client={client}>
+      <ApolloProvider<any> client={client}>
         <BrowserRouter>
           <ThemeProvider theme={theme.dark200}>
             <StyledApp className="App">
