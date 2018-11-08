@@ -1,13 +1,22 @@
-import { FormGroup, Label, VirtualizedSelect } from '@infosum/unikitty';
 import * as React from 'react';
-import { Query } from "react-apollo";
+import { Query } from 'react-apollo';
+
+import {
+  FormFeedback,
+  FormGroup,
+  Label,
+  VirtualizedSelect,
+} from '@infosum/unikitty';
+
 import { GET_USERS } from '../Users/Users';
 
 interface IProps {
   onChange: (v) => void;
   value: string[];
+  errors?: string[] | undefined;
 }
-const PlayerSelect: React.SFC<IProps> = ({ onChange, value }) => {
+
+const PlayerSelect: React.SFC<IProps> = ({ onChange, value, errors }) => {
   return (
     <Query query={GET_USERS}>
       {({ loading, error, data }) => {
@@ -26,6 +35,14 @@ const PlayerSelect: React.SFC<IProps> = ({ onChange, value }) => {
               multi={true}
               options={options}
               onChange={onChange} />
+            {
+              errors
+                ? <FormFeedback valid={false}>
+                  {errors[0]}
+                </FormFeedback>
+                :
+                <FormFeedback>Between 5 and 10 players</FormFeedback>
+            }
           </FormGroup>
         )
       }}

@@ -5,10 +5,12 @@ import {
   RouteComponentProps,
   withRouter,
 } from 'react-router-dom';
+import { required } from 'validate-promise';
 
 import {
   Button,
   Form,
+  FormFeedback,
   FormGroup,
   Input,
   Label,
@@ -43,6 +45,28 @@ const initialData: IAddGameRequest = {
   players: [],
 };
 
+const contract = [
+  {
+    key: 'name',
+    msg: () => 'Name is required',
+    promises: [{
+      rule: required,
+    }]
+  },
+  {
+    key: 'players',
+    msg: () => 'Must have between 5 and 10 players',
+    promises: [{
+      rule: (value: any, row, msg): Promise<string | void> => {
+        if (value.length < 5 || value.length > 9) {
+          return Promise.reject(msg());
+        }
+        return Promise.resolve();
+      },
+    }]
+  }
+];
+
 const AddGame: React.SFC<RouteComponentProps<any>> = ({ history }) => {
   return (
     <Mutation
@@ -58,8 +82,11 @@ const AddGame: React.SFC<RouteComponentProps<any>> = ({ history }) => {
         history.push(`/games/${data.addGame.id}`);
       }}>
       {(addGame) => (
-        <Form<IAddGameRequest> initialData={initialData}>
-          {({ setValue, formData }) => {
+        <Form<IAddGameRequest>
+          initialData={initialData}
+          contract={contract}
+        >
+          {({ setValue, formData, validate, errors }) => {
             return <div>
               <h1>New Game</h1>
               <FormGroup>
@@ -67,24 +94,34 @@ const AddGame: React.SFC<RouteComponentProps<any>> = ({ history }) => {
                   Name:
               </Label>
                 <Input onChange={(e) => setValue('name', e.target.value)} />
+                {
+                  errors.name && <FormFeedback valid={false}>
+                    {errors.name[0]}
+                  </FormFeedback>
+                }
               </FormGroup>
               <PlayerSelect
                 value={formData.players.map((p) => p.value)}
+                errors={errors.players}
                 onChange={(e) => setValue('players', e)} />
               <FormGroup>
                 <Button
                   type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const game = {
-                      variables: {
-                        ...formData,
-                        numberOfPlayers: formData.players.length,
-                        players: formData.players.map((p) => p.value),
-                      }
-                    };
-                    addGame(game);
-
+                  onClick={async (e) => {
+                    try {
+                      e.preventDefault();
+                      await validate(formData);
+                      const game = {
+                        variables: {
+                          ...formData,
+                          numberOfPlayers: formData.players.length,
+                          players: formData.players.map((p) => p.value),
+                        }
+                      };
+                      addGame(game);
+                    } catch (e) {
+                      console.error(e);
+                    }
                   }}
                 >
                   Add
