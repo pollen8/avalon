@@ -11,6 +11,7 @@ const CharacterType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLString },
     isGood: { type: GraphQLBoolean },
+    isUnique: { type: GraphQLBoolean },
     name: { type: GraphQLString },
     description: { type: GraphQLString }
   })

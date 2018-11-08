@@ -1,7 +1,9 @@
-import { Button } from '@infosum/unikitty';
 import gql from 'graphql-tag';
 import * as React from 'react';
 import { Mutation } from 'react-apollo';
+
+import { Button } from '@infosum/unikitty';
+
 import { GET_USERS } from './Users';
 
 const DELETE_USER = gql`
@@ -13,7 +15,7 @@ mutation deleteUser($id: String!) {
 
 
 const DeleteUser: React.SFC<{ id: string }> = ({ id }) => (
-  <Mutation mutation={DELETE_USER}
+  <Mutation<any> mutation={DELETE_USER}
     update={(cache, { data }) => {
       const { users } = cache.readQuery<any>({ query: GET_USERS });
       cache.writeQuery({
